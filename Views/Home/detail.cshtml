@@ -1,0 +1,19 @@
+﻿
+<div class="event-detail w-80 m-auto">
+    <div class="img-container">
+        <!-- Assuming there is a property named EventImage in your Event model -->
+        <img alt="image" src="/Uploads/@Model.EventImage" class="img-fluid">
+    </div>
+
+    <div class="detail-container">
+        <h3>@Model.Title</h3>
+        <p>@Model.Description</p>
+        <p>Date: @Model.Datetime.ToString("MM/dd/yyyy")</p>
+        <p>Location: @Model.Location</p>
+        
+    </div>
+</div>
+
+<div class="w-80 m-auto">
+    <a href="/Home/Occasion" class="btn btn-primary">Back</a>
+</div>

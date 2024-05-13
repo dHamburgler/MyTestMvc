@@ -1,0 +1,60 @@
+﻿@model EurofinsEvents.Models.Event
+
+<form class="w-40" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <h2 class="pb-10">Edit Event</h2>
+
+    <input type="hidden" class="input" asp-for="Event_ID">
+    <input type="hidden" class="input" asp-for="EventImage">
+    <div class="input-container">
+        <label asp-for="Title" class="w-40">Title</label>
+        <input type="text" class="input" asp-for="Title">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="Title"> </span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="EventImage" class="w-40">Image</label>
+        <input type="file" asp-for="ImageFile">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="ImageFile"> </span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="Description" class="w-40">Description</label>
+        <input type="text" class="input" asp-for="Description">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="Description"> </span>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="Confirmed" class="w-40">Is the event confirmed?</label>
+        @Html.CheckBoxFor(model => model.Confirmed)
+    </div>
+
+    <div class="input-container">
+        <label asp-for="Datetime" class="w-40">Date and Time</label>
+        <input asp-for="Datetime" type="datetime-local" class="input">
+        <div class="message-box pd-x-28 error">
+            <span asp-validation-for="Datetime"> </span>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <label asp-for="Location" class="w-40">Location</label>
+        <input type="text" class="input" asp-for="Location">
+    </div>
+    <div class="message-box pd-x-28 error">
+        <span asp-validation-for="Location"> </span>
+    </div>
+
+    <div class="input-container">
+        <button class="btn btn-default" type="submit">Save</button>
+        <a class="btn btn-sec" href="/Event/Index">All records</a>
+    </div>
+</form>
+
+
+

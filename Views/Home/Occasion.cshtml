@@ -1,0 +1,74 @@
+﻿@using System.Security.Claims
+@model List<EurofinsEvents.Models.Event>
+
+@{
+    ViewData["Title"] = "Occasion Page";
+}
+
+<h2>Please vote</h2>
+<div class="d-flex align-content-start flex-wrap">
+
+    @foreach (var ev in Model.Where(x => x.Confirmed == false))
+    {
+        <div class="card m-2" style="width: 18rem;">
+            <img class="card-img-top" src="/Uploads/@ev.EventImage" alt="event">
+            <div class="card-body">
+                <h5 class="card-title">@ev.Title</h5>
+                <p class="card-text">@ev.Description</p>
+                <p class="card-text">@ev.Location</p>
+                @if (User.Identity.IsAuthenticated == false)
+                {
+                    <button type="button" class="btn btn-secondary btn-lg" disabled>You must login to vote</button>
+                }
+                else if (ev.Votes.Any(x => x.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                {
+                    <a asp-action="Unvote" asp-route-id="@ev.Event_ID">
+                        <i class="bi bi-star-fill"></i>
+                    </a>
+                }
+                else
+                {
+                    <a asp-action="Vote" asp-route-id="@ev.Event_ID">
+                        <i class="bi bi-star"></i>
+                    </a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+<hr class="hr hr-blurry" />
+
+
+<h2>Confirmed Events</h2>
+
+<div class="d-flex align-content-start flex-wrap">
+    @foreach (var ev in Model.Where(x => x.Confirmed == true))
+    {
+        <div class="card m-2" style="width: 18rem;">
+            <img class="card-img-top" src="/Uploads/@ev.EventImage" alt="event">
+            <div class="card-body">
+                <h5 class="card-title">@ev.Title</h5>
+                <p class="card-text">@ev.Description</p>
+                <p class="card-text">@ev.Location</p>
+                @if (User.Identity.IsAuthenticated == false)
+                {
+                    <button type="button" class="btn btn-secondary btn-lg" disabled>You must login to join</button>
+                }
+                else if (ev.Guests.Any(x => x.Id == User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                {
+                    <a asp-action="Unjoin" asp-route-id="@ev.Event_ID" class="btn btn-danger">Unjoin</a>
+                }
+                else
+                {
+                    <a asp-action="Join" asp-route-id="@ev.Event_ID" class="btn btn-success">Join</a>
+                }
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
